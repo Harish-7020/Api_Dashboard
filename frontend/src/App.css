@@ -1,80 +1,110 @@
-/* .App {
+/* src/components/App.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --light-bg: #ffffff;
+  --light-text: #000000;
+  --dark-bg: #282c34;
+  --dark-text: #ffffff;
+}
+
+.App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: var(--light-bg);
+  padding: 20px;
+  color: var(--light-text);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.App-link {
-  color: #61dafb;
+.App.dark .App-header {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
 }
-body {
-  background-color: #f8f9fa;
-  font-family: Arial, sans-serif;
+
+button {
+  padding: 10px 20px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+main {
+  padding: 20px;
+  background-color: var(--light-bg);
+  color: var(--light-text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.App.dark main {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
 }
 
 h1, h2 {
+  color: inherit;
+}
+
+table {
+  width: 50%;
+  margin: 0 auto 20px;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
   text-align: center;
 }
 
-.my-4 {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.dashboard.light {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
 
-/* src/App.css */
-.App {
+.dashboard.dark {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+table {
+  width: 50%;
+  margin: 0 auto 20px;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
   text-align: center;
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-.App-logo {
-  height: 80px;
+tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
-  width: 100%;
+.dashboard.light tr:hover {
+  background-color: #e1e1e1;
 }
 
-.App-title {
-  font-size: 2rem;
-  margin: 0;
+.dashboard.dark tr:hover {
+  background-color: #444;
 }
+.chart-container {
+  width: 800px; /* Adjust the width as needed */
+  height: 800px; /* Adjust the height as needed */
+  margin: 0 auto;
+}
+

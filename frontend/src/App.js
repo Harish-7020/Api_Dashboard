@@ -1,33 +1,45 @@
 // import React from 'react';
-// import ApiUsageDashboard from './ApiUsageDashboard';
+// import ApiUsageDashboard from './components/ApiUsageDashboard';
+// import './App.css';
 
 // function App() {
 //   return (
 //     <div className="App">
-//       <ApiUsageDashboard />
+//       <header className="App-header">
+//         <h1>API Usage Dashboard</h1>
+//       </header>
+//       <main>
+//         <ApiUsageDashboard />
+//       </main>
 //     </div>
 //   );
 // }
 
 // export default App;
-
-// src/App.js
-// src/App.js
-import React from 'react';
-import ApiUsageList from './components/ApiUsageList';
+import React, { useState } from 'react';
+import ApiUsageDashboard from './components/ApiUsageDashboard';
 import './App.css';
 
 function App() {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return (
-    <div className="App">
+    <div className={`App ${theme}`}>
       <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <h1 className="App-title">API Usage Dashboard</h1>
+        <h1>API Usage Dashboard</h1>
+        <button onClick={toggleTheme}>
+          {theme === 'light' ? 'Switch to Dark Theme' : 'Switch to Light Theme'}
+        </button>
       </header>
-      <ApiUsageList />
+      <main>
+        <ApiUsageDashboard theme={theme} />
+      </main>
     </div>
   );
 }
 
 export default App;
-
