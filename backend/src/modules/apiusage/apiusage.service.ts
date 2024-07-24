@@ -50,10 +50,22 @@ export class ApiUsageService {
     apiUsage.errorDetails = errorDetails;
     await this.apiUsageRepository.save(apiUsage);
   }
+
   async findAll(): Promise<APIUsage[]> {
     return this.apiUsageRepository.find();
   }
 
+  async getTotalRequests(): Promise<{ GET: number, POST: number, PUT: number, DELETE: number }> {
+    const getRequests = await this.apiUsageRepository.count({ where: { requestMethod: 'GET' } });
+    const postRequests = await this.apiUsageRepository.count({ where: { requestMethod: 'POST' } });
+    const putRequests = await this.apiUsageRepository.count({ where: { requestMethod: 'PUT' } });
+    const deleteRequests = await this.apiUsageRepository.count({ where: { requestMethod: 'DELETE' } });
 
-
+    return {
+      GET: getRequests,
+      POST: postRequests,
+      PUT: putRequests,
+      DELETE: deleteRequests,
+    };
+  }
 }

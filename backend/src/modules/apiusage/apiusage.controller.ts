@@ -1,13 +1,18 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiUsageService } from './apiusage.service';
+import { APIUsage } from './entity/api-usage.entity';
 
 @Controller('apiusage')
 export class ApiUsageController {
   constructor(private readonly apiUsageService: ApiUsageService) {}
 
   @Get()
-  async findAll() {
+  findAll(): Promise<APIUsage[]> {
     return this.apiUsageService.findAll();
   }
 
+  @Get('totals')
+  getTotalRequests(): Promise<{ GET: number, POST: number, PUT: number, DELETE: number }> {
+    return this.apiUsageService.getTotalRequests();
+  }
 }
