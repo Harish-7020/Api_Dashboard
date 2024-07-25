@@ -476,6 +476,9 @@ const ApiUsageDashboard = ({ theme }) => {
     DELETE: 0,
   });
 
+  //network traffic
+  const [networkTraffic, setNetworkTraffic] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -495,8 +498,21 @@ const ApiUsageDashboard = ({ theme }) => {
       }
     };
 
+    //network traffic
+
+  const fetchNetworkTraffic = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/apiusage/traffic');
+      setNetworkTraffic(response.data);
+    } catch (error) {
+      console.error('Error fetching network traffic data:', error);
+    }
+  };
+
+
     fetchData();
     fetchRequestCounts();
+    fetchNetworkTraffic();
   }, []);
 
   const getUsers = () => {
@@ -558,6 +574,21 @@ const ApiUsageDashboard = ({ theme }) => {
     };
   };
 
+  //network traffic
+
+  const getNetworkTrafficData = () => {
+    return {
+      labels: networkTraffic.map(item => item.timestamp),
+      datasets: [{
+        label: 'Network Traffic',
+        data: networkTraffic.map(item => item.count),
+        backgroundColor: 'rgba(255,159,64,0.6)',
+        borderColor: 'rgba(255,159,64,1)',
+        fill: false,
+      }]
+    };
+  };
+
   return (
     <div className={`dashboard ${theme}`}>
       <div>
@@ -580,6 +611,10 @@ const ApiUsageDashboard = ({ theme }) => {
             <p>{requestCounts.DELETE}</p>
           </div>
         </div>
+      </div>
+      <div>
+        <h2>Network Traffic Over Time</h2>
+        <Line data={getNetworkTrafficData()} />
       </div>
       <div>
         <h2>User IDs</h2>

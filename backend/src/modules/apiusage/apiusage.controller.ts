@@ -15,4 +15,9 @@ export class ApiUsageController {
   getTotalRequests(): Promise<{ GET: number, POST: number, PUT: number, DELETE: number }> {
     return this.apiUsageService.getTotalRequests();
   }
+  //traffic
+  @Get('traffic')
+  getNetworkTraffic() {
+    return this.apiUsageService.getNetworkTraffic();
+  }
 }

@@ -68,4 +68,18 @@ export class ApiUsageService {
       DELETE: deleteRequests,
     };
   }
+  //network traffic
+  async getNetworkTraffic(): Promise<{ timestamp: string, count: number }[]> {
+    const rawTrafficData = await this.apiUsageRepository.createQueryBuilder('apiUsage')
+      .select('CONVERT(VARCHAR, apiUsage.timestamp, 23) as timestamp')
+      .addSelect('COUNT(*) as count')
+      .groupBy('CONVERT(VARCHAR, apiUsage.timestamp, 23)')
+      .getRawMany();
+  
+    return rawTrafficData.map(data => ({
+      timestamp: data.timestamp,
+      count: Number(data.count)
+    }));
+  }
+  
 }
