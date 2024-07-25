@@ -601,7 +601,9 @@ const ApiUsageDashboard = ({ theme }) => {
       {selectedUserId && (
         <div>
           <h2>Usage for User ID: {selectedUserId}</h2>
+          <div className="chart-container">
           <Pie data={getUserUsage(selectedUserId)} />
+          </div>
         </div>
       )}
       <div>
