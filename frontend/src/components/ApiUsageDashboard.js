@@ -533,6 +533,8 @@ const ApiUsageDashboard = ({ theme }) => {
         label: 'Request Methods',
         data: Object.values(methods),
         backgroundColor: ['rgba(75,192,192,0.6)', 'rgba(255,99,132,0.6)', 'rgba(54,162,235,0.6)', 'rgba(255,206,86,0.6)', 'rgba(153,102,255,0.6)'],
+        borderColor: ['rgba(75,192,192,1)', 'rgba(255,99,132,1)', 'rgba(54,162,235,1)', 'rgba(255,206,86,1)', 'rgba(153,102,255,1)'],
+        borderWidth: 1,
       }]
     };
   };
@@ -551,7 +553,9 @@ const ApiUsageDashboard = ({ theme }) => {
         data: Object.values(usageOverTime),
         backgroundColor: 'rgba(75,192,192,0.6)',
         borderColor: 'rgba(75,192,192,1)',
+        borderWidth: 1,
         fill: false,
+        tension: 0.5,
       }]
     };
   };
@@ -589,6 +593,71 @@ const ApiUsageDashboard = ({ theme }) => {
     };
   };
 
+  const chartOptions = {
+    animation: {
+      duration: 1500,
+      easing: 'easeInOutElastic',
+      animateScale: true,
+      animateRotate: true,
+    },
+    plugins: {
+      tooltip: {
+        enabled: true,
+        mode: 'index',
+        intersect: false,
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        borderColor: 'rgba(0,0,0,0.3)',
+        borderWidth: 1,
+        caretSize: 5,
+        cornerRadius: 5,
+        xPadding: 10,
+        yPadding: 10,
+      },
+      legend: {
+        display: true,
+        labels: {
+          color: theme === 'dark' ? '#fff' : '#000',
+          font: {
+            family: 'Poppins, sans-serif',
+            size: 14,
+            weight: 'bold'
+          },
+          boxWidth: 20, 
+          padding: 15
+        },
+        position: 'top',
+        align: 'start',
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: theme === 'dark' ? '#fff' : '#000',
+          font: {
+            family: 'Poppins, sans-serif',
+            size: 12
+          }
+        },
+        grid: {
+          color: theme === 'dark' ? '#444' : '#ddd'
+        }
+      },
+      y: {
+        ticks: {
+          color: theme === 'dark' ? '#fff' : '#000',
+          font: {
+            family: 'Poppins, sans-serif',
+            size: 12
+          }
+        },
+        grid: {
+          color: theme === 'dark' ? '#444' : '#ddd'
+        }
+      }
+    }
+  };
   return (
     <div className={`dashboard ${theme}`}>
       <div>

@@ -20,7 +20,6 @@ return {
                 trustServerCertificate: true,
               },
             entities :[Students, Subjects, Users, APIUsage],
-            // "synchronize": true
 
         };
     }

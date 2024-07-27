@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
@@ -38,4 +38,77 @@ table, th, td {
 th, td {
   padding: 10px;
   text-align: left;
+} */
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+}
+
+.dashboard {
+  padding: 20px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.charts {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid var(--light-text);
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: var(--hover-color);
+  color: #fff;
+}
+
+.App.dark table, .App.dark th, .App.dark td {
+  border: 1px solid var(--dark-text);
+}
+
+.App.dark th {
+  background-color: var(--secondary-color);
+}
+
+.App.dark tr:nth-child(even) {
+  background-color: #333;
+}
+
+.App.dark tr:hover {
+  background-color: var(--hover-color);
 }

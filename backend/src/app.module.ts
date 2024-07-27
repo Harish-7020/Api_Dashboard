@@ -8,6 +8,7 @@ import { SubjectModule } from './modules/subject/subject.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { APIUsageModule } from './modules/apiusage/apiusage.module';
 
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -16,9 +17,7 @@ import { APIUsageModule } from './modules/apiusage/apiusage.module';
     StudentModule,
     SubjectModule,
     AuthModule,
-    APIUsageModule
-    
-
+    APIUsageModule,
 
   ],
   controllers: [AppController],
