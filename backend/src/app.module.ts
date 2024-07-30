@@ -18,6 +18,7 @@ import { APIUsageModule } from './modules/apiusage/apiusage.module';
     SubjectModule,
     AuthModule,
     APIUsageModule,
+    
 
   ],
   controllers: [AppController],

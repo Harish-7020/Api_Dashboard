@@ -257,7 +257,7 @@ tr:hover {
 }
 
 body {
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
 }
 
 h1, h2 {
@@ -321,7 +321,7 @@ main {
 }
 
 table {
-  width: 80%;
+  width: 50%;
   margin: 0 auto 20px;
   border-collapse: collapse;
 }
@@ -346,24 +346,6 @@ tr:hover {
 .dashboard.dark {
   background-color: var(--dark-bg);
   color: var(--dark-text);
-}
-
-table {
-  width: 50%;
-  margin: 0 auto 20px;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-tr:hover {
-  background-color: var(--hover-color);
-  cursor: pointer;
-  color: #fff;
 }
 
 .dashboard.light tr:hover {
@@ -411,8 +393,67 @@ tr:hover {
 }
 
 .chart-container {
-  width: 500px;
-  height: 500px;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
+}
+.dashboard {
+  padding: 20px;
+}
+
+.request-counts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.request-count {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.chart-container {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #45a049;
+}
+
+.export-csv {
+  display: inline-block;
+  text-align: center;
 }
 

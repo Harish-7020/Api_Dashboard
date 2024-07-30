@@ -55,13 +55,7 @@ body {
   padding: 20px;
 }
 
-.filters {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
-}
-
-.charts {
+.filters, .charts {
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;

@@ -20,12 +20,10 @@ import React, { useState } from 'react';
 import ApiUsageDashboard from './components/ApiUsageDashboard';
 import './App.css';
 
-function App() {
+const App = () => {
   const [theme, setTheme] = useState('light');
 
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
+  const toggleTheme = () => setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
 
   return (
     <div className={`App ${theme}`}>
@@ -40,6 +38,6 @@ function App() {
       </main>
     </div>
   );
-}
+};
 
 export default App;
