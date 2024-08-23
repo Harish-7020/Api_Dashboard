@@ -13,7 +13,7 @@ import { LocalStrategy } from './local.strategy';
     PassportModule,
     JwtModule.register({
       secret: 'THIS IS A SECRET KEY FOR JSON WEB TOKENS', 
-      signOptions: { expiresIn: '120m' },
+      signOptions: { expiresIn: '1m' },
     }),
   ],
   providers: [AuthService, JwtStrategy, LocalStrategy],

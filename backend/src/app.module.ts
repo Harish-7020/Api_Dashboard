@@ -7,6 +7,8 @@ import { TypeormService } from './config/database.config';
 import { SubjectModule } from './modules/subject/subject.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { APIUsageModule } from './modules/apiusage/apiusage.module';
+import { MonitoringModule } from './monitoring/monitoring.module';
+import { UsersModule } from './modules/users/users.module';
 
 
 @Module({
@@ -18,7 +20,8 @@ import { APIUsageModule } from './modules/apiusage/apiusage.module';
     SubjectModule,
     AuthModule,
     APIUsageModule,
-    
+    MonitoringModule,
+    UsersModule,
 
   ],
   controllers: [AppController],
