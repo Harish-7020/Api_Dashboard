@@ -4,6 +4,7 @@ import { LoggingInterceptor } from './monitoring/logging.interceptor';
 import * as compression from 'compression';
 import { VersioningType } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { IoAdapter } from '@nestjs/platform-socket.io';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -21,8 +22,11 @@ async function bootstrap() {
   app.enableVersioning({
     type: VersioningType.URI, 
   });
+
   const jwtService = app.get(JwtService);
 
+  app.useWebSocketAdapter(new IoAdapter(app));
+  
   app.useGlobalInterceptors(new LoggingInterceptor(jwtService));
 
   app.enableCors();

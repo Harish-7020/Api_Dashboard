@@ -1,6 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from "@nestjs/typeorm";
 import { APIUsage } from "src/modules/apiusage/entity/api-usage.entity";
+import { Group } from "src/modules/groups/group.entity";
+import { GroupMember } from "src/modules/groups/groupmember.entity";
+import { Message } from "src/modules/messages/message.entity";
 import { Students } from "src/modules/student/entity/student.entity";
 import { Subjects } from "src/modules/subject/entity/subject.entity";
 import { Users } from "src/modules/users/entity/users.entity";
@@ -19,7 +22,7 @@ return {
             options: {
                 trustServerCertificate: true,
               },
-            entities :[Students, Subjects, Users, APIUsage],
+            entities :[Students, Subjects, Users, APIUsage,Message,Group,GroupMember],
 
         };
     }
