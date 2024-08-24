@@ -86,7 +86,7 @@ const App = () => {
     <Router>
       <div className="App">
         <header className="App-header">
-          <h1>Welcome, {username}!</h1>
+          <h1>Welcome {username} !!!</h1>
           {token && (
             <button onClick={handleLogout}>Logout</button>
           )}

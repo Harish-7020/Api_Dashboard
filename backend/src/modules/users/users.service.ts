@@ -22,4 +22,9 @@ export class UsersService {
       select: ['id', 'username'],
     });
   }
+
+  async findById(id: number): Promise<Users> {
+    return this.usersRepository.findOne({ where: { id } });
+  }
+
 }

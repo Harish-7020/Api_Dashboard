@@ -1,5 +1,6 @@
 import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { MessagesService } from './messages.service';
+import { Message } from './message.entity';
 
 @Controller('messages')
 export class MessagesController {
@@ -26,4 +27,13 @@ export class MessagesController {
     // Implement the method in MessagesService to retrieve messages for a group
     return this.messagesService.getMessagesForGroup(groupId);
   }
+
+  @Get('direct/:userId/:recipientId')
+  async getMessagesForDirect(
+    @Param('userId') userId: number,
+    @Param('recipientId') recipientId: number,
+  ): Promise<Message[]> {
+    return this.messagesService.getMessagesForDirect(userId, recipientId);
+  }
+
 }
