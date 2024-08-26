@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './entity/users.entity';
@@ -11,20 +11,39 @@ export class UsersService {
   ) {}
 
   async findAll(): Promise<Partial<Users>[]> {
-    return this.usersRepository.find({
-      select: ['id', 'username'],
-    });
+    try {
+      return await this.usersRepository.find({
+        select: ['id', 'username'],
+      });
+    } catch (error) {
+      throw new Error('Unable to fetch users');
+    }
   }
 
   async findOne(id: number): Promise<Partial<Users>> {
-    return this.usersRepository.findOne({
-      where: { id },
-      select: ['id', 'username'],
-    });
+    try {
+      const user = await this.usersRepository.findOne({
+        where: { id },
+        select: ['id', 'username'],
+      });
+      if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+      return user;
+    } catch (error) {
+      throw new Error('Unable to fetch user');
+    }
   }
 
   async findById(id: number): Promise<Users> {
-    return this.usersRepository.findOne({ where: { id } });
+    try {
+      const user = await this.usersRepository.findOne({ where: { id } });
+      if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+      return user;
+    } catch (error) {
+      throw new Error('Unable to fetch user by ID');
+    }
   }
-
 }

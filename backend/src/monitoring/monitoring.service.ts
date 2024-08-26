@@ -1,61 +1,83 @@
 import { Injectable } from '@nestjs/common';
 import * as pidusage from 'pidusage';
 import * as si from 'systeminformation';
-import * as fs from 'fs';
 import * as path from 'path';
 import { exec } from 'child_process';
+import { promisify } from 'util';
 
 @Injectable()
 export class MonitoringService {
+  private execPromise = promisify(exec);
+
   async getCPUUsage(): Promise<number> {
-    const stats = await pidusage(process.pid);
-    return stats.cpu;
+    try {
+      const stats = await pidusage(process.pid);
+      return stats.cpu;
+    } catch (error) {
+      console.error('Error fetching CPU usage:', error);
+      return 0;
+    }
   }
 
   async getMemoryUsage(): Promise<number> {
-    const stats = await pidusage(process.pid);
-    return stats.memory / 1024 / 1024; // Convert to MB
+    try {
+      const stats = await pidusage(process.pid);
+      return stats.memory / 1024 / 1024; // Convert to MB
+    } catch (error) {
+      console.error('Error fetching memory usage:', error);
+      return 0;
+    }
   }
 
   async getDiskUsage(): Promise<number> {
-    return new Promise((resolve, reject) => {
-      exec(`powershell -command "Get-ChildItem -Recurse | Measure-Object -Property Length -Sum"`, { cwd: path.resolve(__dirname, '../..') }, (error, stdout) => {
-        if (error) {
-          return reject(error);
-        }
-        const sizeInBytes = parseFloat(stdout.match(/Sum\s+:\s+(\d+)/)[1].trim());
-        resolve(sizeInBytes / 1024 / 1024); // Convert to MB
-      });
-    });
+    try {
+      const { stdout } = await this.execPromise(
+        `powershell -command "Get-ChildItem -Recurse | Measure-Object -Property Length -Sum"`,
+        { cwd: path.resolve(__dirname, '../..') }
+      );
+      const sizeInBytesMatch = stdout.match(/Sum\s+:\s+(\d+)/);
+      if (sizeInBytesMatch) {
+        const sizeInBytes = parseFloat(sizeInBytesMatch[1].trim());
+        return sizeInBytes / 1024 / 1024; // Convert to MB
+      }
+      console.error('Error parsing disk usage output:', stdout);
+      return 0;
+    } catch (error) {
+      console.error('Error fetching disk usage:', error);
+      return 0;
+    }
   }
-  
 
   async getNetworkUsage(): Promise<{ rx: number; tx: number }> {
-    const networkStats = await si.networkStats();
-  
-    if (!networkStats || networkStats.length === 0) {
+    try {
+      const networkStats = await si.networkStats();
+
+      if (!networkStats || networkStats.length === 0) {
+        return { rx: 0, tx: 0 };
+      }
+
+      const rx = networkStats.reduce((acc, stat) => acc + (stat.rx_bytes || 0), 0);
+      const tx = networkStats.reduce((acc, stat) => acc + (stat.tx_bytes || 0), 0);
+
       return {
-        rx: 0,
-        tx: 0,
+        rx: rx / 1024 / 1024, // Convert to MB
+        tx: tx / 1024 / 1024, // Convert to MB
       };
+    } catch (error) {
+      console.error('Error fetching network usage:', error);
+      return { rx: 0, tx: 0 };
     }
-  
-    const rx = networkStats.reduce((acc, stat) => acc + (stat.rx_bytes || 0), 0);
-    const tx = networkStats.reduce((acc, stat) => acc + (stat.tx_bytes || 0), 0);
-  
-    return {
-      rx: rx / 1024 / 1024, // Convert to MB
-      tx: tx / 1024 / 1024, // Convert to MB
-    };
   }
-  
+
   async getSystemMetrics(): Promise<any> {
     try {
-      const cpuUsage = await this.getCPUUsage();
-      const memoryUsage = await this.getMemoryUsage();
-      const diskUsage = await this.getDiskUsage(); // Disk usage in MB
-      const networkUsage = await this.getNetworkUsage();
-  
+      const [cpuUsage, memoryUsage, diskUsage, networkUsage] = await Promise.all([
+        this.getCPUUsage(),
+        this.getMemoryUsage(),
+        this.getDiskUsage(),
+        this.getNetworkUsage(),
+      ]);
+
       return {
         cpuUsage,
         memoryUsage,
@@ -72,5 +94,4 @@ export class MonitoringService {
       };
     }
   }
-}  
-  
+}

@@ -72,7 +72,7 @@
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background-color: #ecfdff; 
+  background-color: #e6e6fa ; 
   position: relative;
 }
 
@@ -82,7 +82,8 @@
   border-radius: 5px;
   max-width: 50%;
   word-wrap: break-word;
-  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition 
+  */
 }
 
 .chat-message.sent {
