@@ -349,6 +349,7 @@ const ApiUsageDashboard = ({ theme }) => {
                 <td>{new Date(item.timestamp).toLocaleString()}</td>
                 <td>{item.status}</td>
                 <td>{item.errorDetails || 'N/A'}</td>
+                
               </tr>
             ))}
           </tbody>

@@ -142,11 +142,14 @@ tr:hover {
 .request-count h3 {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
+  color : black;
 }
 
 .request-count p {
   font-size: 24px;
+  font-weight: 1000;
   margin: 10px 0 0;
+  color : black;
 }
 
 .chart-container {
