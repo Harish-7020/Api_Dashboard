@@ -18,6 +18,10 @@ import { UsersController } from './modules/users/users.controller';
 import { MessagesService } from './modules/messages/messages.service';
 import { GroupsService } from './modules/groups/groups.service';
 import { UsersService } from './modules/users/users.service';
+import { NotificationService } from './modules/filters/notification.service';
+import { NotificationsGateway } from './modules/filters/notifications.gateway';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './modules/filters/all-exceptions.filter';
 
 
 @Module({
@@ -37,6 +41,9 @@ import { UsersService } from './modules/users/users.service';
 
   ],
   controllers: [AppController,MessagesController, UsersController],
-  providers: [AppService,MessagesService, GroupsService, UsersService],
+  providers: [AppService,MessagesService, GroupsService, UsersService,NotificationService,NotificationsGateway, {
+    provide: APP_FILTER,
+    useClass: AllExceptionsFilter,
+  }],
 })
 export class AppModule  {}

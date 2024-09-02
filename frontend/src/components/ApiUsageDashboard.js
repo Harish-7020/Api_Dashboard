@@ -46,6 +46,9 @@ const ApiUsageDashboard = ({ theme }) => {
       }
     };
     fetchData();
+
+    const intervalId = setInterval(fetchData, 10000); // Fetch data every 10 sec
+    return () => clearInterval(intervalId);
   }, []);
 
   const cpuSpring = useSpring({ value: systemMetrics.cpuUsage || 0, from: { value: 0 }, config: { duration: 1000 } });
@@ -119,7 +122,7 @@ const ApiUsageDashboard = ({ theme }) => {
       }]
     };
   };
-
+  
   const getNetworkTrafficData = () => ({
     labels: networkTraffic.map((item) => item.timestamp),
     datasets: [{
